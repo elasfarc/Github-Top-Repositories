@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 function LangaugesNav(props) {
   const LANGS = ["All", "JavaScript", "Ruby", "Java", "CSS", "Python"];
@@ -22,6 +23,10 @@ function LangaugesNav(props) {
     </ul>
   );
 }
+LangaugesNav.propTypes = {
+  selected: PropTypes.string.isRequired,
+  handleClick: PropTypes.func.isRequired,
+};
 
 export default class Popular extends React.Component {
   constructor(props) {
