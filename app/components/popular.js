@@ -1,5 +1,19 @@
 import React from 'react';
 
+function LangaugesNav(props) {
+  const LANGS = ['All', 'JavaScript', 'Ruby', 'Java', 'CSS', 'Python'];
+  return (
+    // eslint-disable-next-line react/jsx-filename-extension
+    <ul className="flex-center">
+      {LANGS.map((lang) => (
+        <li key={lang} style={props.selected === lang ? { backgroundColor: 'orangered' } : null}>
+          <button className="btn-clear nav-link" onClick={() => props.handleClick(lang)}>{lang}</button>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 export default class Popular extends React.Component {
   constructor(props) {
     super(props);
@@ -16,15 +30,11 @@ export default class Popular extends React.Component {
   // }
 
   render() {
-    const LANGS = ['All', 'JavaScript', 'Ruby', 'Java', 'CSS', 'Python'];
+    const { lang } = this.state;
     return (
-      <ul className="flex-center">
-        {LANGS.map((lang) => (
-          <li key={lang} style={this.state.lang === lang ? {backgroundColor: 'orangered'} : null}>
-            <button className="btn-clear nav-link" onClick={() => this.handleClick(lang)}>{lang}</button>
-          </li>
-        ))}
-      </ul>
+      <>
+        <LangaugesNav handleClick={this.handleClick} selected={lang} />
+      </>
     );
   }
 }
