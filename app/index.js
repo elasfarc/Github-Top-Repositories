@@ -1,10 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Popular from './components/popular.js';
 import './index.css'
 class App extends React.Component {
   render() {
     return(
-      <div>Hello World!!</div>
+      <div className='container'>
+        <Popular/>
+      </div>
     )
   }
 }
