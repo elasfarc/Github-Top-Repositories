@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { getRepos } from "../util/api";
 
 function LangaugesNav(props) {
   const LANGS = ["All", "JavaScript", "Ruby", "Java", "CSS", "Python"];
@@ -31,23 +32,45 @@ LangaugesNav.propTypes = {
 export default class Popular extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { lang: "All" };
+    this.state = { lang: "All", repos: null, error: null };
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick(lang) {
-    this.setState({ lang });
+  async componentDidMount() {
+    this.setState({ error: null, repos: await getRepos(this.state.lang) });
   }
 
-  // handleClick =  (lang) => {
-  //   this.setState({ lang })
-  // }
+  handleClick(lang) {
+    this.setState({
+      lang,
+      error: null,
+      repos: null,
+    });
+    getRepos(lang)
+      .then((repos) => {
+        this.setState({ repos, error: null });
+      })
+      .catch((error) => {
+        this.setState({ error });
+      });
+  }
+
+  isLoading = () => {
+    return this.state.error === null && this.state.repos === null;
+  };
 
   render() {
     const { lang } = this.state;
     return (
       <>
         <LangaugesNav handleClick={this.handleClick} selected={lang} />
+        {/* {console.log("*****", this.state.repos)}
+        {console.log("*****", this.isLoading)} */}
+        {this.isLoading() && <p>LOADING...</p>}
+        {this.state.error && <p>{this.state.error}</p>}
+        {this.state.repos && (
+          <pre>{JSON.stringify(this.state.repos, null, 2)}</pre>
+        )}
       </>
     );
   }
