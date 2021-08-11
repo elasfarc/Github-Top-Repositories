@@ -1,13 +1,22 @@
-import React from 'react';
+import React from "react";
 
 function LangaugesNav(props) {
-  const LANGS = ['All', 'JavaScript', 'Ruby', 'Java', 'CSS', 'Python'];
+  const LANGS = ["All", "JavaScript", "Ruby", "Java", "CSS", "Python"];
   return (
-    // eslint-disable-next-line react/jsx-filename-extension
     <ul className="flex-center">
       {LANGS.map((lang) => (
-        <li key={lang} style={props.selected === lang ? { backgroundColor: 'orangered' } : null}>
-          <button className="btn-clear nav-link" onClick={() => props.handleClick(lang)}>{lang}</button>
+        <li
+          key={lang}
+          style={
+            props.selected === lang ? { backgroundColor: "orangered" } : null
+          }
+        >
+          <button
+            className="btn-clear nav-link"
+            onClick={() => props.handleClick(lang)}
+          >
+            {lang}
+          </button>
         </li>
       ))}
     </ul>
@@ -17,7 +26,7 @@ function LangaugesNav(props) {
 export default class Popular extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { lang: 'All' };
+    this.state = { lang: "All" };
     this.handleClick = this.handleClick.bind(this);
   }
 
